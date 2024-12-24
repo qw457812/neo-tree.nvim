@@ -215,10 +215,8 @@ handle_reveal = function(args, state)
     cwd = manager.get_cwd(state)
   end
 
-  if dir == nil then
+  if dir == nil or not utils.is_subpath(dir, path) then
     dir, _ = utils.split_path(path)
-  elseif not utils.is_subpath(dir, path) then
-    error(string.format('%s is not a subpath of %s', path, args.dir))
   end
 
   if args.reveal_force_cwd and not utils.is_subpath(cwd, path) then
